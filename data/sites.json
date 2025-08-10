@@ -1,0 +1,99 @@
+{
+  "sites": [
+    {
+      "id": 1,
+      "name": "Pornhub",
+      "url": "https://www.pornhub.com",
+      "category": ["Adulte"],
+      "description": "Plateforme de vidéos pour adultes populaire.",
+      "verification_type": "Selfie vidéo ou pièce d’identité via un prestataire",
+      "context": "Conformité à la loi française 2024 ; blocage complet en France en signe de protestation.",
+      "date_in_effect": "juillet 2024",
+      "status": "Bloqué en France ; accessible sans vérification hors France",
+      "country": ["FR"],
+      "sources": ["Politico.eu", "TF1 Info", "AP News"],
+      "alternatives": [
+        {
+          "name": "YouPorn",
+          "url": "https://www.youporn.com",
+          "description": "Site de vidéos pour adultes accessible sans vérification intrusive (confirmation 18+ classique)."
+        },
+        {
+          "name": "SpankBang",
+          "url": "https://spankbang.com",
+          "description": "Plateforme pour adultes offrant un contenu similaire, sans pièce d’identité requise."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Reddit",
+      "url": "https://www.reddit.com",
+      "category": ["Réseaux sociaux"],
+      "description": "Forum communautaire regroupant des discussions sur des milliers de sujets.",
+      "verification_type": "Vérification d’âge via service tiers (Persona) – scan d’une pièce d’identité ou selfie vidéo",
+      "context": "Conformité à l’Online Safety Act 2023 (R.-Uni)",
+      "date_in_effect": "juillet 2024",
+      "status": "Vérification requise au Royaume‑Uni seulement",
+      "country": ["UK"],
+      "sources": ["Tom’s Guide"],
+      "alternatives": [
+        {
+          "name": "Lemmy",
+          "url": "https://join-lemmy.org",
+          "description": "Alternative open‑source fédérée à Reddit ; pas de vérification centrale."
+        },
+        {
+          "name": "Kbin",
+          "url": "https://kbin.social",
+          "description": "Alternative communautaire aux forums, sans demande d’ID."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Spotify",
+      "url": "https://www.spotify.com",
+      "category": ["Streaming"],
+      "description": "Service de streaming musical et de podcasts.",
+      "verification_type": "Contrôle d’âge via Yoti pour certains clips 18+",
+      "context": "Volonté de respecter les réglementations sur le contenu adulte",
+      "date_in_effect": "2024",
+      "status": "Vérification appliquée de manière sélective pour les clips 18+",
+      "country": ["International"],
+      "sources": ["Tom’s Guide"],
+      "alternatives": [
+        {
+          "name": "Bandcamp",
+          "url": "https://bandcamp.com",
+          "description": "Plateforme de musique indépendante avec simple confirmation 18+ pour les contenus explicites."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "X (Twitter)",
+      "url": "https://twitter.com",
+      "category": ["Réseaux sociaux"],
+      "description": "Réseau social de micro‑blogging.",
+      "verification_type": "Demande d’identité ou de carte bancaire pour accéder à certains contenus sensibles",
+      "context": "Déploiement progressif en réponse aux lois britanniques",
+      "date_in_effect": "2024",
+      "status": "Implémenté au Royaume‑Uni ; tests dans d’autres régions",
+      "country": ["UK"],
+      "sources": ["Tom’s Guide"],
+      "alternatives": [
+        {
+          "name": "Mastodon",
+          "url": "https://joinmastodon.org",
+          "description": "Réseau social décentralisé ; aucune vérification globale, chaque instance définit ses règles."
+        },
+        {
+          "name": "Bluesky",
+          "url": "https://blueskyweb.xyz",
+          "description": "Réseau social alternatif plus ouvert ; encore sans vérification obligatoire en dehors du Royaume‑Uni."
+        }
+      ]
+    }
+  ]
+}

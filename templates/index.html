@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Accueil – StopVerifAge{% endblock %}
+{% block content %}
+<div class="text-center mb-4">
+  <h1 class="display-5">Protégez votre vie privée en ligne</h1>
+  <p class="lead">Cet outil recense les sites exigeant un contrôle d'identité pour accéder à du contenu mature et propose des alternatives respectueuses de votre anonymat.</p>
+</div>
+
+<!-- Search bar -->
+<form class="search-bar" role="search" method="get" action="{{ url_for('sites') }}">
+  <div class="input-group input-group-lg">
+    <input type="text" class="form-control" placeholder="Recherchez un site…" aria-label="Rechercher" name="q">
+    <button class="btn btn-primary" type="submit">Chercher</button>
+  </div>
+</form>
+
+<!-- Categories -->
+<h2 class="mt-5">Catégories couvertes</h2>
+<div class="row row-cols-1 row-cols-md-3 g-3">
+  {% for category in categories %}
+    <div class="col">
+      <a href="{{ url_for('sites', category=category) }}" class="text-decoration-none">
+        <div class="card site-card h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ category }}</h5>
+            <p class="card-text">Consultez les sites de la catégorie "{{ category }}" imposant une vérification.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Recent sites -->
+<h2 class="mt-5">Sites récemment ajoutés</h2>
+<div class="row row-cols-1 row-cols-md-2 g-3">
+  {% for site in recent_sites %}
+    <div class="col">
+      <a href="{{ url_for('site_detail', site_id=site['id']) }}" class="text-decoration-none">
+        <div class="card site-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ site['name'] }}</h5>
+            <p class="card-text"><strong>Catégorie :</strong> {{ site['category'] }}</p>
+            <p class="card-text"><strong>Méthode :</strong> {{ site['verification_type'] }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

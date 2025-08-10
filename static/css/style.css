@@ -1,0 +1,30 @@
+/* Custom styles for StopVerifAge */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* highlight cards */
+.site-card {
+  transition: background-color 0.2s ease;
+}
+.site-card:hover {
+  background-color: #f8f9fa;
+}
+
+/* style for alternative listing */
+.alt-card {
+  border-left: 4px solid var(--bs-success);
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 1.5rem auto;
+}
+
+/* ensure tables and lists wrap nicely on mobile */
+.table-responsive {
+  overflow-x: auto;
+}

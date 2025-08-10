@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Annuaire – StopVerifAge{% endblock %}
+{% block content %}
+<h1>Annuaire des sites vérifiés</h1>
+<p>Consultez la liste des sites imposant une vérification d'identité ou un contrôle d'âge. Utilisez la recherche et les filtres pour affiner les résultats.</p>
+
+<!-- Filter form -->
+<form class="row gy-2 gx-3 align-items-end mb-4" method="get" action="{{ url_for('sites') }}">
+  <div class="col-md-4">
+    <label for="q" class="form-label">Recherche</label>
+    <input type="text" class="form-control" id="q" name="q" value="{{ q }}" placeholder="Nom du site…">
+  </div>
+  <div class="col-md-3">
+    <label for="category" class="form-label">Catégorie</label>
+    <select class="form-select" id="category" name="category">
+      <option value="">Toutes</option>
+      {% for cat in categories %}
+        <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label for="country" class="form-label">Région</label>
+    <select class="form-select" id="country" name="country">
+      <option value="">Toutes</option>
+      {% for c in countries %}
+        <option value="{{ c }}" {% if c == selected_country %}selected{% endif %}>{{ c }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2 d-grid">
+    <button type="submit" class="btn btn-primary">Filtrer</button>
+  </div>
+</form>
+
+<!-- Results table -->
+{% if sites %}
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nom du site</th>
+          <th>Catégorie</th>
+          <th>Méthode de vérification</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for site in sites %}
+          <tr>
+            <td><a href="{{ url_for('site_detail', site_id=site['id']) }}">{{ site['name'] }}</a></td>
+            <td>{{ site['category'] }}</td>
+            <td>{{ site['verification_type'] }}</td>
+            <td>{{ site['status'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p>Aucun site ne correspond à vos critères.</p>
+{% endif %}
+{% endblock %}

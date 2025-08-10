@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Page non trouvée – StopVerifAge{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h1 class="display-4">404</h1>
+  <p class="lead">Désolé, la page demandée n'a pas été trouvée.</p>
+  <a href="{{ url_for('index') }}" class="btn btn-primary">Retour à l'accueil</a>
+</div>
+{% endblock %}

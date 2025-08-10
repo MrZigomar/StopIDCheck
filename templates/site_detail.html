@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}{{ site['name'] }} – StopVerifAge{% endblock %}
+{% block content %}
+<h1>{{ site['name'] }}</h1>
+<p class="text-muted"><strong>URL :</strong> <a href="{{ site['url'] }}" target="_blank" rel="noopener">{{ site['url'] }}</a></p>
+
+<div class="mb-3">
+  <strong>Catégorie :</strong> {{ site['category'] }}<br>
+  <strong>Description :</strong> {{ site['description'] }}<br>
+  <strong>Méthode de vérification :</strong> {{ site['verification_type'] }}<br>
+  <strong>Contexte légal :</strong> {{ site['context'] }}<br>
+  <strong>Date d’entrée en vigueur :</strong> {{ site['date_in_effect'] }}<br>
+  <strong>Statut d’accessibilité :</strong> {{ site['status'] }}<br>
+  <strong>Pays / Région :</strong> {{ site['country'] }}<br>
+  <strong>Sources :</strong> {{ site['sources'] }}
+</div>
+
+<h2>Alternatives sans vérification</h2>
+{% if alternatives %}
+  <div>
+    {% for alt in alternatives %}
+      <div class="alt-card">
+        <h5 class="mb-1">{{ alt['alt_name'] }}</h5>
+        <p class="mb-1"><a href="{{ alt['alt_url'] }}" target="_blank" rel="noopener">{{ alt['alt_url'] }}</a></p>
+        <p class="mb-0">{{ alt['alt_description'] }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>Nous n’avons pas encore d’alternative pour ce site.</p>
+{% endif %}
+
+<a href="{{ url_for('sites') }}" class="btn btn-secondary mt-4">Retour à l’annuaire</a>
+{% endblock %}
