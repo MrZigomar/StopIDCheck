@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Administration – StopVerifAge{% endblock %}
 {% block content %}
+<form method="post" action="{{ url_for('admin_sync') }}" class="mb-3 d-inline">
+  <input type="hidden" name="prune" value="0">
+  <button class="btn btn-sm btn-light">Resynchroniser JSON → DB</button>
+</form>
 <h1>Suggestions en attente</h1>
 {% if suggestions %}
   <div class="table-responsive">
