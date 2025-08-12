@@ -8,7 +8,7 @@ identifié une alternative sans vérification, merci de remplir ce formulaire. N
 
 <form method="post" action="{{ url_for('suggest') }}">
   <div class="mb-3">
-    <label for="name" class="form-label">Nom du site ou de l'alternative</label>
+    <label for="name" class="form-label">Nom du site</label>
     <input type="text" class="form-control" id="name" name="name" required>
   </div>
   <div class="mb-3">
@@ -16,8 +16,25 @@ identifié une alternative sans vérification, merci de remplir ce formulaire. N
     <input type="url" class="form-control" id="url" name="url" required>
   </div>
   <div class="mb-3">
-    <label for="description" class="form-label">Description et détails</label>
+    <label for="category" class="form-label">Catégorie</label>
+    <input type="text" class="form-control" id="category" name="category" placeholder="ex. Adulte, Réseaux sociaux…" required>
+  </div>
+  <div class="mb-3">
+    <label for="verification_type" class="form-label">Méthode de vérification</label>
+    <input type="text" class="form-control" id="verification_type" name="verification_type" placeholder="ex. Selfie vidéo, scan d'identité…" required>
+  </div>
+  <div class="mb-3">
+    <label for="country" class="form-label">Pays/région d’application</label>
+    <input type="text" class="form-control" id="country" name="country" placeholder="ex. FR, UK, International" required>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description et contexte</label>
     <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="alternatives" class="form-label">Alternatives sans vérification (une par ligne)</label>
+    <small class="form-text text-muted">Format&nbsp;: Nom | URL | Description optionnelle</small>
+    <textarea class="form-control" id="alternatives" name="alternatives" rows="4" placeholder="Alternative1 | https://exemple.com | Description facultative"></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>

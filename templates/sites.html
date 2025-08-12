@@ -2,9 +2,7 @@
 {% block title %}Annuaire – StopVerifAge{% endblock %}
 {% block content %}
 <h1>Annuaire des sites vérifiés</h1>
-<p>Consultez la liste des sites imposant une vérification d'identité ou un contrôle d'âge. Utilisez la recherche et les filtres pour affiner les résultats.</p>
-
-<!-- Filter form -->
+<p>Recherchez et filtrez les sites qui imposent une vérification d'identité.</p>
 <form class="row gy-2 gx-3 align-items-end mb-4" method="get" action="{{ url_for('sites') }}">
   <div class="col-md-4">
     <label for="q" class="form-label">Recherche</label>
@@ -32,20 +30,18 @@
     <button type="submit" class="btn btn-primary">Filtrer</button>
   </div>
 </form>
-
-<!-- Results table -->
-{% if sites %}
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Nom du site</th>
-          <th>Catégorie</th>
-          <th>Méthode de vérification</th>
-          <th>Statut</th>
-        </tr>
-      </thead>
-      <tbody>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom du site</th>
+        <th>Catégorie</th>
+        <th>Méthode de vérification</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if sites %}
         {% for site in sites %}
           <tr>
             <td><a href="{{ url_for('site_detail', site_id=site['id']) }}">{{ site['name'] }}</a></td>
@@ -54,10 +50,10 @@
             <td>{{ site['status'] }}</td>
           </tr>
         {% endfor %}
-      </tbody>
-    </table>
-  </div>
-{% else %}
-  <p>Aucun site ne correspond à vos critères.</p>
-{% endif %}
+      {% else %}
+        <tr><td colspan="4">Aucun site ne correspond à vos critères.</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

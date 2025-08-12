@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Administration – StopVerifAge{% endblock %}
+{% block content %}
+<h1>Suggestions en attente</h1>
+{% if suggestions %}
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Nom</th>
+          <th>Catégorie</th>
+          <th>Méthode de vérification</th>
+          <th>Pays/Région</th>
+          <th>Description</th>
+          <th>Alternatives proposées</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sug in suggestions %}
+        <tr>
+          <td>{{ sug['name'] }}</td>
+          <td>{{ sug['category'] }}</td>
+          <td>{{ sug['verification_type'] }}</td>
+          <td>{{ sug['country'] }}</td>
+          <td>{{ sug['description'] }}</td>
+          <td>
+            <ul class="list-unstyled mb-0">
+              {% if sug['alternatives'] %}
+                {% for alt in sug['alternatives'] %}
+                  <li><strong>{{ alt['name'] }}</strong> – <a href="{{ alt['url'] }}" target="_blank">{{ alt['url'] }}</a>{% if alt['description'] %}: {{ alt['description'] }}{% endif %}</li>
+                {% endfor %}
+              {% else %}
+                <li>Aucune</li>
+              {% endif %}
+            </ul>
+          </td>
+          <td class="text-nowrap">
+            <form method="post" action="{{ url_for('admin_suggestion_action', sug_id=sug['id'], action='accept') }}" class="d-inline">
+              <button type="submit" class="btn btn-success btn-sm">Accepter</button>
+            </form>
+            <form method="post" action="{{ url_for('admin_suggestion_action', sug_id=sug['id'], action='reject') }}" class="d-inline ms-2">
+              <button type="submit" class="btn btn-danger btn-sm">Rejeter</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p>Aucune suggestion en attente.</p>
+{% endif %}
+{% endblock %}
