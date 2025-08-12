@@ -15,37 +15,37 @@
     <button type="submit" class="btn btn-primary btn-lg">Chercher</button>
   </div>
 </form>
-<!-- Categories -->
+<!-- Catégories -->
 <h2>Catégories couvertes</h2>
-<div class="row row-cols-1 row-cols-md-3 g-3">
+<p>
   {% for cat in categories %}
-    <div class="col">
-      <a href="{{ url_for('sites', category=cat) }}" class="text-decoration-none">
-        <div class="card h-100">
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ cat }}</h5>
-            <p class="card-text">Voir les sites de cette catégorie</p>
-          </div>
-        </div>
-      </a>
-    </div>
+    <a href="{{ url_for('sites', category=cat) }}" class="badge bg-info text-dark text-decoration-none me-1">{{ cat }}</a>
   {% endfor %}
-</div>
-<!-- Recent sites -->
+</p>
+
+<!-- Sites récents -->
 <h2 class="mt-5">Sites récemment ajoutés</h2>
-<div class="row row-cols-1 row-cols-md-2 g-3">
-  {% for site in recent_sites %}
-    <div class="col">
-      <a href="{{ url_for('site_detail', site_id=site['id']) }}" class="text-decoration-none">
-        <div class="card h-100">
-          <div class="card-body">
-            <h5 class="card-title">{{ site['name'] }}</h5>
-            <p class="card-text"><strong>Catégorie :</strong> {{ site['category'] }}</p>
-            <p class="card-text"><strong>Méthode :</strong> {{ site['verification_type'] }}</p>
-          </div>
-        </div>
-      </a>
-    </div>
-  {% endfor %}
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom du site</th>
+        <th>Tags</th>
+        <th>Méthode</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for site in recent_sites %}
+        <tr>
+          <td><a href="{{ url_for('site_detail', site_id=site['id']) }}">{{ site['name'] }}</a></td>
+          <td>
+            <span class="badge bg-info text-dark me-1">{{ site['category'] }}</span>
+            <span class="badge bg-warning text-dark">{{ site['country'] }}</span>
+          </td>
+          <td>{{ site['verification_type'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

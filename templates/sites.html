@@ -3,39 +3,42 @@
 {% block content %}
 <h1>Annuaire des sites vérifiés</h1>
 <p>Recherchez et filtrez les sites qui imposent une vérification d'identité.</p>
-<form class="row gy-2 gx-3 align-items-end mb-4" method="get" action="{{ url_for('sites') }}">
-  <div class="col-md-4">
-    <label for="q" class="form-label">Recherche</label>
-    <input type="text" class="form-control" id="q" name="q" value="{{ q }}" placeholder="Nom du site…">
+
+<!-- Barre de recherche simplifiée -->
+<form class="row gy-2 gx-3 align-items-end mb-3" method="get" action="{{ url_for('sites') }}">
+  <div class="col-md-8">
+    <input type="text" class="form-control" id="q" name="q" value="{{ q }}" placeholder="Rechercher un site…">
   </div>
-  <div class="col-md-3">
-    <label for="category" class="form-label">Catégorie</label>
-    <select class="form-select" id="category" name="category">
-      <option value="">Toutes</option>
-      {% for cat in categories %}
-        <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
-      {% endfor %}
-    </select>
+  <div class="col-md-3 d-grid">
+    <button type="submit" class="btn btn-primary">Rechercher</button>
   </div>
-  <div class="col-md-3">
-    <label for="country" class="form-label">Région</label>
-    <select class="form-select" id="country" name="country">
-      <option value="">Toutes</option>
-      {% for c in countries %}
-        <option value="{{ c }}" {% if c == selected_country %}selected{% endif %}>{{ c }}</option>
-      {% endfor %}
-    </select>
+  {% if selected_category or selected_country %}
+  <div class="col-md-1 d-grid">
+    <a href="{{ url_for('sites') }}" class="btn btn-secondary">Réinitialiser</a>
   </div>
-  <div class="col-md-2 d-grid">
-    <button type="submit" class="btn btn-primary">Filtrer</button>
-  </div>
+  {% endif %}
 </form>
+
+<!-- Filtres par tags -->
+<div class="mb-4">
+  <strong>Catégories :</strong>
+  <a href="{{ url_for('sites') }}" class="badge bg-secondary text-decoration-none me-1 {% if not selected_category %}active{% endif %}">Toutes</a>
+  {% for cat in categories %}
+    <a href="{{ url_for('sites', category=cat) }}" class="badge bg-info text-dark text-decoration-none me-1 {% if cat == selected_category %}active{% endif %}">{{ cat }}</a>
+  {% endfor %}
+  <br>
+  <strong>Régions :</strong>
+  <a href="{{ url_for('sites', category=selected_category) }}" class="badge bg-secondary text-decoration-none me-1 {% if not selected_country %}active{% endif %}">Toutes</a>
+  {% for c in countries %}
+    <a href="{{ url_for('sites', category=selected_category, country=c) }}" class="badge bg-warning text-dark text-decoration-none me-1 {% if c == selected_country %}active{% endif %}">{{ c }}</a>
+  {% endfor %}
+</div>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Nom du site</th>
-        <th>Catégorie</th>
+        <th>Tags</th>
         <th>Méthode de vérification</th>
         <th>Statut</th>
       </tr>
@@ -45,7 +48,10 @@
         {% for site in sites %}
           <tr>
             <td><a href="{{ url_for('site_detail', site_id=site['id']) }}">{{ site['name'] }}</a></td>
-            <td>{{ site['category'] }}</td>
+            <td>
+              <span class="badge bg-info text-dark me-1">{{ site['category'] }}</span>
+              <span class="badge bg-warning text-dark">{{ site['country'] }}</span>
+            </td>
             <td>{{ site['verification_type'] }}</td>
             <td>{{ site['status'] }}</td>
           </tr>

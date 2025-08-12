@@ -174,7 +174,7 @@ def create_app(test_config=None):
     def index():
         db = get_db()
         categories = [row['category'] for row in db.execute('SELECT DISTINCT category FROM sites').fetchall()]
-        recent_sites = db.execute('SELECT id, name, category, verification_type FROM sites ORDER BY id DESC LIMIT 4').fetchall()
+        recent_sites = db.execute('SELECT id, name, category, verification_type, country FROM sites ORDER BY id DESC LIMIT 4').fetchall()
         return render_template('index.html', categories=categories, recent_sites=recent_sites)
 
     @app.route('/sites')
