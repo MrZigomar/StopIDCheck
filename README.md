@@ -1,16 +1,16 @@
 # Utilisation locale
 
-    Extraction : téléchargez l’archive ci-dessus et décompressez‑la dans un dossier local.
+Extraction : téléchargez l’archive ci-dessus et décompressez‑la dans un dossier local.
 
-    Environnement Python : créez un environnement virtuel (python -m venv venv), activez‑le puis installez les dépendances :
+Environnement Python : créez un environnement virtuel (python -m venv venv), activez‑le puis installez les dépendances :
 
-pip install -r stopid_mvp/requirements.txt
+    pip install -r requirements.txt
 
 Exécution : lancez l’application en développement :
 
-    python stopid_mvp/app.py
+    python app.py
 
-    Par défaut, elle écoute sur http://localhost:5000. La base de données SQLite est créée automatiquement dans stopid_mvp/data/sites.db au premier lancement et contient des exemples.
+Par défaut, elle écoute sur http://localhost:5000. La base de données SQLite est créée automatiquement dans stopid_mvp/data/sites.db au premier lancement et contient des exemples.
 
 # Déploiement en ligne (méthode recommandée : Render)
 
