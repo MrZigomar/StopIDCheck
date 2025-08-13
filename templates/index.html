@@ -1,51 +1,57 @@
-{% extends 'base.html' %}
-{% block title %}Accueil – StopVerifAge{% endblock %}
-{% block content %}
-<div class="text-center mb-4">
-  <h1>Protégez votre vie privée en ligne</h1>
-  <p class="lead">Cet outil recense les sites qui exigent un contrôle d'identité et propose des alternatives respectueuses de votre anonymat.</p>
-</div>
-<!-- Search form -->
-<form class="row gy-2 gx-3 align-items-end mb-4" method="get" action="{{ url_for('sites') }}">
-  <div class="col-md-8">
-    <label for="q" class="visually-hidden">Recherche</label>
-    <input type="text" class="form-control form-control-lg" id="q" name="q" placeholder="Recherchez un site…">
-  </div>
-  <div class="col-md-4 d-grid">
-    <button type="submit" class="btn btn-primary btn-lg">Chercher</button>
-  </div>
-</form>
-<!-- Catégories -->
-<h2>Catégories couvertes</h2>
-<p>
-  {% for cat in categories %}
-    <a href="{{ url_for('sites', category=cat) }}" class="badge bg-info text-dark text-decoration-none me-1">{{ cat }}</a>
-  {% endfor %}
-</p>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Accueil – StopVerifAge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Thème sombre -->
+  <style>
+    body{background:#0d1b2a;color:#e0e1dd}
+    a{color:#a8dadc}
+    .table{background:#1b263b;color:#e0e1dd}
+    .table tr+tr td{border-top:1px solid #415a77}
+    .badge.bg-info{background:#415a77!important;color:#e0e1dd!important}
+    .badge.bg-warning{background:#778da9!important;color:#0d1b2a!important}
+  </style>
+</head>
+<body class="container py-4">
+  <header class="mb-4">
+    <h1 class="h3">Protégez votre vie privée en ligne</h1>
+    <p class="text-secondary">Sites exigeant un contrôle d'identité et alternatives respectueuses.</p>
+    <a href="{{ url_for('sites') }}" class="btn btn-light btn-sm">Voir l’annuaire</a>
+  </header>
 
-<!-- Sites récents -->
-<h2 class="mt-5">Sites récemment ajoutés</h2>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Nom du site</th>
-        <th>Tags</th>
-        <th>Méthode</th>
-      </tr>
-    </thead>
-    <tbody>
+  <h2 class="h5 mb-3">Récemment ajoutés</h2>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Tags</th>
+          <th>Méthode</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
       {% for site in recent_sites %}
         <tr>
           <td><a href="{{ url_for('site_detail', site_id=site['id']) }}">{{ site['name'] }}</a></td>
           <td>
-            <span class="badge bg-info text-dark me-1">{{ site['category'] }}</span>
-            <span class="badge bg-warning text-dark">{{ site['country'] }}</span>
+            {% for cat in site['categories'] %}
+              <span class="badge bg-info me-1">{{ cat }}</span>
+            {% endfor %}
+            {% for cty in site['countries'] %}
+              <span class="badge bg-warning">{{ cty }}</span>
+            {% endfor %}
           </td>
-          <td>{{ site['verification_type'] }}</td>
+          <td>{{ site['verification_type'] or '—' }}</td>
+          <td>{{ site['status'] or '—' }}</td>
         </tr>
       {% endfor %}
-    </tbody>
-  </table>
-</div>
-{% endblock %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
