@@ -1,3 +1,50 @@
+# Utilisation locale
+
+    Extraction : téléchargez l’archive ci-dessus et décompressez‑la dans un dossier local.
+
+    Environnement Python : créez un environnement virtuel (python -m venv venv), activez‑le puis installez les dépendances :
+
+pip install -r stopid_mvp/requirements.txt
+
+Exécution : lancez l’application en développement :
+
+    python stopid_mvp/app.py
+
+    Par défaut, elle écoute sur http://localhost:5000. La base de données SQLite est créée automatiquement dans stopid_mvp/data/sites.db au premier lancement et contient des exemples.
+
+# Déploiement en ligne (méthode recommandée : Render)
+
+Pour rendre ce projet accessible publiquement sans vous occuper du serveur, Render propose une solution simple :
+
+    Poussez le code sur GitHub : créez un dépôt, ajoutez tous les fichiers du dossier stopid_mvp, commentez puis poussez votre branche (via git add ., git commit -m "Ajout MVP StopIDCheck", git push origin main).
+
+    Créez un compte sur Render : connectez‑vous sur render.com et cliquez sur New > Web Service.
+
+    Connectez votre dépôt GitHub : sélectionnez le dépôt contenant ce code.
+
+    Renseignez les paramètres lors de la création (selon la documentation de Render
+    render.com
+    ) :
+
+        Language : Python 3
+
+        Build Command : pip install -r requirements.txt
+        render.com
+
+        Start Command : gunicorn app:app
+        render.com
+        (c’est l’entrée WSGI de Flask ; Render installera automatiquement Gunicorn).
+
+    Déployez : cliquez sur Create Web Service. Render clone votre dépôt, installe les dépendances et démarre l’application. Une URL publique du type https://votre-projet.onrender.com sera générée
+    render.com
+    .
+
+    Mises à jour : chaque git push sur la branche liée déclenchera une nouvelle construction et mise en ligne automatique
+    render.com
+    . Si la build échoue, Render conserve la version précédente.
+
+Veillez à définir des variables d’environnement (comme SECRET_KEY, ADMIN_USER et ADMIN_PASSWORD) dans l’interface Render afin d’éviter d’utiliser les valeurs par défaut. Pour un usage à plus grande échelle, vous pourrez migrer la base SQLite vers PostgreSQL et ajouter un moteur de recherche (Meilisearch) comme décrit dans le cahier des charges.
+
 # StopIDCheck
 # Cahier des charges – Outil de référencement des sites à vérification d’identité (et alternatives sans vérification)
 # Contexte et problématique
