@@ -1,0 +1,65 @@
+{#
+  Home page template.
+
+  This page introduces the purpose of the site, offers a search box to
+  quickly find a site by name or description, lists the available
+  categories as links and shows the most recently added sites.  Each
+  section can be customised without altering the logic in app.py.
+#}
+{% extends 'base.html' %}
+
+{% block title %}Accueil – StopIDCheck{% endblock %}
+
+{% block content %}
+    <h2>Protégez votre vie privée en ligne</h2>
+    <p>
+        Cet outil recense les sites qui exigent un contrôle d'identité ou un scan facial et propose des alternatives respectueuses de votre anonymat.
+    </p>
+
+    <section>
+        <h3>Recherche</h3>
+        <form action="{{ url_for('list_sites') }}" method="get" class="search-form">
+            <input type="text" name="q" placeholder="Rechercher un site..." value="">
+            <button type="submit">Chercher</button>
+        </form>
+    </section>
+
+    <section>
+        <h3>Catégories couvertes</h3>
+        <ul class="categories">
+            {% for cat in categories %}
+            <li><a href="{{ url_for('list_sites', category=cat) }}">{{ cat }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h3>Sites récemment ajoutés</h3>
+        {% if recent_sites %}
+        <div class="site-list">
+            <table class="site-table">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>Pays</th>
+                    <th>Vérification</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for site in recent_sites %}
+                <tr>
+                    <td><a href="{{ url_for('view_site', site_id=site['id']) }}">{{ site['name'] }}</a></td>
+                    <td>{{ site['category'] }}</td>
+                    <td><span class="flags">{{ flag_emoji(site['country']) }}</span> {{ site['country'] }}</td>
+                    <td>{{ site['verification_type'] }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>Aucun site récemment ajouté.</p>
+        {% endif %}
+    </section>
+{% endblock %}

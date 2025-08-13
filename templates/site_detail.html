@@ -1,0 +1,38 @@
+{#
+  Detailed view of a single site.
+
+  The page shows all attributes of the site as well as the list of
+  recommended alternatives.  Links to the site and its alternatives open
+  in a new tab to avoid losing the browsing session.
+#}
+{% extends 'base.html' %}
+
+{% block title %}{{ site['name'] }} – StopIDCheck{% endblock %}
+
+{% block content %}
+    <h2>{{ site['name'] }}</h2>
+    <p><strong>URL :</strong> <a href="{{ site['url'] }}" target="_blank" rel="noopener noreferrer">{{ site['url'] }}</a></p>
+    <p><strong>Catégorie :</strong> {{ site['category'] }}</p>
+    <p><strong>Pays :</strong> <span class="flags">{{ flag_emoji(site['country']) }}</span> {{ site['country'] }}</p>
+    <p><strong>Type de vérification :</strong> {{ site['verification_type'] }}</p>
+    <p><strong>Contexte réglementaire :</strong> {{ site['context'] or 'Non spécifié' }}</p>
+    <p><strong>Date d’entrée en vigueur :</strong> {{ site['date_in_effect'] or 'Non spécifié' }}</p>
+    <p><strong>Statut :</strong> {{ site['status'] }}</p>
+    <p><strong>Sévérité :</strong> <span class="severity-dot {{ site['severity_class'] }}" title="{{ site['severity_label'] }}"></span>{{ site['severity_label'] }}</p>
+    <p><strong>Sources :</strong> {{ site['sources'] }}</p>
+
+    <h3>Alternatives sans vérification</h3>
+    {% if alternatives %}
+        <ul class="alternatives">
+        {% for alt in alternatives %}
+            <li>
+                <a href="{{ alt['alt_url'] }}" target="_blank" rel="noopener noreferrer">{{ alt['alt_name'] }}</a> –
+                {{ alt['alt_description'] }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune alternative renseignée.</p>
+    {% endif %}
+
+{% endblock %}

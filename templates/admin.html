@@ -1,0 +1,44 @@
+{#
+  Dashboard for reviewing suggested sites.
+
+  Administrators see pending suggestions submitted by visitors.  They can
+  approve (publishing to the main list) or delete suggestions.  Login is
+  required to access this page.
+#}
+{% extends 'base.html' %}
+
+{% block title %}Tableau de bord – StopIDCheck{% endblock %}
+
+{% block content %}
+    <h2>Suggestions en attente</h2>
+    {% if suggestions %}
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>URL</th>
+                    <th>Catégorie</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for s in suggestions %}
+                <tr>
+                    <td>{{ s['id'] }}</td>
+                    <td>{{ s['name'] }}</td>
+                    <td>{{ s['url'] }}</td>
+                    <td>{{ s['category'] }}</td>
+                    <td>
+                        <a href="{{ url_for('approve_suggestion', suggestion_id=s['id']) }}">Approuver</a>
+                        |
+                        <a href="{{ url_for('delete_suggestion', suggestion_id=s['id']) }}" onclick="return confirm('Supprimer cette suggestion ?');">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune suggestion en attente.</p>
+    {% endif %}
+{% endblock %}

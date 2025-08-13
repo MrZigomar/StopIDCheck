@@ -1,0 +1,53 @@
+{#
+  Base template used by all pages.
+
+  This file defines the HTML skeleton for every page: the <head> section
+  includes CSS, metadata and the page title; the <body> defines a simple
+  header with navigation links and a content container.  Individual
+  templates extend this base and fill the 'content' block.  You can
+  customise the styles in static/style.css without changing this file.
+#}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StopIDCheck{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="{{ url_for('index') }}">StopIDCheck</a></h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Accueil</a>
+                <a href="{{ url_for('list_sites') }}">Sites</a>
+                <a href="{{ url_for('suggest') }}">Suggérer un site</a>
+                {% if session.get('logged_in') %}
+                <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+                <a href="{{ url_for('logout') }}">Déconnexion</a>
+                {% else %}
+                <a href="{{ url_for('login') }}">Admin</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; {{ 2025 }} StopIDCheck – Outil de boycott des sites intrusifs</p>
+        </div>
+    </footer>
+</body>
+</html>

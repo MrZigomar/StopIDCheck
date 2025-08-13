@@ -1,0 +1,41 @@
+{#
+  Template listing multiple sites.
+
+  This page displays all sites returned from the `/sites` route.  Users
+  can filter the list by category and search term.  Each entry displays
+  the basic information and links to its detail page.
+#}
+{% extends 'base.html' %}
+
+{% block title %}Liste des sites – StopIDCheck{% endblock %}
+
+{% block content %}
+    <h2>Liste des sites</h2>
+    <form action="{{ url_for('list_sites') }}" method="get" class="filter-form">
+        <label for="category">Catégorie :</label>
+        <select name="category" id="category" onchange="this.form.submit()">
+            <option value="">Toutes</option>
+            {% for cat in categories %}
+            <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+        <label for="q">Recherche :</label>
+        <input type="text" name="q" id="q" value="{{ query or '' }}" placeholder="Terme de recherche...">
+        <button type="submit">Filtrer</button>
+    </form>
+
+    <div class="site-grid">
+        {% if sites %}
+            {% for site in sites %}
+                <div class="site-card">
+                    <h4><a href="{{ url_for('view_site', site_id=site['id']) }}">{{ site['name'] }}</a></h4>
+                    <p class="tags">{{ site['category'] }} — {{ site['country'] }}</p>
+                    <p class="verification">{{ site['verification_type'] }}</p>
+                    <p class="status">{{ site['status'] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Aucun site trouvé.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{#
+  Form allowing visitors to suggest a new site for inclusion.
+
+  Required fields are name, URL and category.  Alternatives can be entered
+  as one entry per line with pipes separating the fields: name | url |
+  description.  The admin panel will parse this information.  Flash
+  messages are displayed on submission success or error.
+#}
+{% extends 'base.html' %}
+
+{% block title %}Suggérer un site – StopIDCheck{% endblock %}
+
+{% block content %}
+    <h2>Suggérer un site</h2>
+    <form action="{{ url_for('suggest') }}" method="post" class="suggest-form">
+        <label>Nom du site *<br>
+            <input type="text" name="name" required>
+        </label>
+        <label>URL du site *<br>
+            <input type="url" name="url" required>
+        </label>
+        <label>Catégorie *<br>
+            <select name="category" multiple required>
+                {% for cat in categories %}
+                <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Type de vérification<br>
+            <select name="verification_type" multiple>
+                {% for v in verification_types %}
+                <option value="{{ v }}">{{ v }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Pays / Région concernée<br>
+            <select name="country" multiple>
+                {% for c in countries %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Description<br>
+            <textarea name="description" rows="3"></textarea>
+        </label>
+        <label>Alternatives (une par ligne, format : nom | url | description)<br>
+            <textarea name="alternatives" rows="4" placeholder="Alternative Name | https://example.com | description"></textarea>
+        </label>
+        <p class="note">* Champs obligatoires</p>
+        <button type="submit">Envoyer la suggestion</button>
+    </form>
+{% endblock %}

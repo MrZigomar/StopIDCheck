@@ -1,0 +1,22 @@
+{#
+  Administrator login page.
+
+  The admin area is protected by a very simple username/password form.  In
+  production you should implement a more secure authentication mechanism.
+#}
+{% extends 'base.html' %}
+
+{% block title %}Connexion administrateur – StopIDCheck{% endblock %}
+
+{% block content %}
+    <h2>Connexion administrateur</h2>
+    <form action="{{ url_for('login') }}" method="post" class="login-form">
+        <label>Nom d’utilisateur<br>
+            <input type="text" name="username" required>
+        </label>
+        <label>Mot de passe<br>
+            <input type="password" name="password" required>
+        </label>
+        <button type="submit">Se connecter</button>
+    </form>
+{% endblock %}
